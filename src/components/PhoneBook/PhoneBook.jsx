@@ -9,17 +9,20 @@ class PhoneBook extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
     const newNameId = nanoid();
     const name = this.state.name;
-    const newName = { name: name, id: newNameId };
-    // console.log(this.state);
+    const number = this.state.number;
+    const newName = { name: name, id: newNameId, number: number };
+    console.log(this.state);
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newName],
       name: '',
+      number:'',
     }));
     // console.log("newname", newName)
     // console.log("newID", newNameId)
@@ -32,9 +35,10 @@ class PhoneBook extends Component {
 
 
   handleChange = evt => {
-    const name = evt.target.value;
+    // const name = evt.target.name;
+    // const inputVal = evt.target.value;
 
-    this.setState({ name: name });
+    this.setState({ [evt.target.name]: evt.target.value });
   };
 
   render() {
@@ -44,7 +48,18 @@ class PhoneBook extends Component {
       <div>
         <h2>Phonebook</h2>
         <form onSubmit={this.handleSubmit}>
-          <input name={this.state.name} value={this.state.name} onChange={this.handleChange}></input>
+          <input
+            placeholder="name"
+            name='name'
+            value={this.state.name}
+            onChange={this.handleChange}
+          ></input>
+          <input
+            placeholder="phone number"
+            name='number'
+            value={this.state.number}
+            onChange={this.handleChange}
+          ></input>
           <button type="submit">Add contact</button>
         </form>
         <h2>Contacts</h2>
